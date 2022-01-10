@@ -15,7 +15,7 @@ public class EnrollServer {
     }
 
     public static String base_url() {
-        return "192.168.1.41:8888";
+        return "192.168.1.3:8888";
     }
 
     public void request(String url, Response.Listener<String> listener) {
@@ -27,6 +27,7 @@ public class EnrollServer {
                 listener, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // TODO inform user about the problem
                 Log.e(getClass().getName(), "HTTP response " + error);
             }
         });

@@ -24,7 +24,6 @@ public class ClientManager {
         context = a_context;
     }
 
-
     public void getAll() {
         Uri.Builder uri = new Uri.Builder();
         uri.scheme("http");

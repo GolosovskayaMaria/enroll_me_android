@@ -24,44 +24,19 @@ import java.util.ListIterator;
 
 public class ClientsFragment extends Fragment {
 
-    private ClientsViewModel clientsViewModel;
     private FragmentClientsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        clientsViewModel =
-                new ViewModelProvider(this).get(ClientsViewModel.class);
 
         binding = FragmentClientsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
-        clientsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         final TableLayout tableClients = root.findViewById(R.id.tablelayout_clients);
         MainActivity main = (MainActivity) getActivity();
-        main.setClientsUI(tableClients);
-
-
-        clientsViewModel.getClients().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(@Nullable List<String> arrlist) {
-                Iterator<String> iter = arrlist.iterator();
-                while (iter.hasNext()) {
-                    TableRow row = new TableRow(getActivity());
-                    TextView tv = new TextView(getActivity());
-                    tv.setText(iter.next());
-                    tableClients.addView(row);
-                    row.addView(tv);
-                }
-            }
-        });
-
+        main.setClientsUI(this);
 
         return root;
     }
@@ -72,7 +47,5 @@ public class ClientsFragment extends Fragment {
         binding = null;
     }
 
-    public void updateView() {
 
-    }
 }

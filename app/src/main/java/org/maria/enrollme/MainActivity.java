@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
     private EnrollServer server;
     private ClientManager clientManager;
-    private TableLayout tableClients;
+    private org.maria.enrollme.ui.clients_view.ClientsFragment tableView;
 
-    public void setClientsUI(TableLayout a_tableClients) {
-        tableClients = a_tableClients;
+    public void setClientsUI(org.maria.enrollme.ui.clients_view.ClientsFragment a_tableView) {
+        tableView = a_tableView;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         server = new EnrollServer(this);
         clientManager = new ClientManager(server, this);
         clientManager.getAll();
-//        org.maria.enrollme.ui.clients_view.ClientsViewModel model = new ViewModelProvider(this).get(org.maria.enrollme.ui.clients_view.ClientsViewModel.class);
+
     }
 
     public void updateFragments(List<ClientEntity> clients) {
@@ -80,24 +80,16 @@ public class MainActivity extends AppCompatActivity {
                 for (Fragment fragment : allFragments) {
                     if (fragment.isVisible()) {
                         Log.d(getClass().getName(), "update " + fragment.getClass().toString());
-                        androidx.navigation.fragment.NavHostFragment frag = (androidx.navigation.fragment.NavHostFragment) fragment;
-//                        final TableLayout tableClients = fragment.findViewById(R.id.tablelayout_clients);
-//                        ((org.maria.enrollme.ui.clients_view.ClientsFragment) fragment).updateView();
-
                         for (ClientEntity entity : clients) {
                             TableRow row = new TableRow(th);
                             TextView tv = new TextView(th);
                             tv.setText(entity.getName() );
                             tableClients.addView(row);
                             row.addView(tv);
-
                         }
-
-
                     }
                 }
             }
         });
     }
-
 }
